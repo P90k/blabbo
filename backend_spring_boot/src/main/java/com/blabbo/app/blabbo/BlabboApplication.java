@@ -8,6 +8,5 @@ public class BlabboApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BlabboApplication.class, args);
-	}
-
+		}
 }
