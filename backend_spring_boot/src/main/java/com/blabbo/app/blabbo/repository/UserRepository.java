@@ -1,4 +1,5 @@
 package com.blabbo.app.blabbo.repository;
+
 import com.blabbo.app.blabbo.model.User;
 
 import java.util.Optional;
