@@ -2,6 +2,7 @@ package com.blabbo.app.blabbo.model;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class User {
 
     @Email
     @NotBlank
+    @Column(unique = true)
     private String email;
 
     @NotBlank
@@ -35,7 +37,7 @@ public class User {
     private List<Message> sentMessages;
 
     @OneToMany(mappedBy = "recipient")
-    private List<Message> recievedMessages;
+    private List<Message> receivedMessages;
 
     public User() {
     }
@@ -84,17 +86,18 @@ public class User {
     }
 
     public List<Message> getRecievedMessages() {
-        return recievedMessages;
+        return receivedMessages;
     }
 
     public void setRecievedMessages(List<Message> recievedMessages) {
-        this.recievedMessages = recievedMessages;
+        this.receivedMessages = recievedMessages;
     }
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", sentMessages="
-                + sentMessages + ", recievedMessages=" + recievedMessages + "]";
+        return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=PROTECTED, sentMessagesCount="
+                + (sentMessages == null ? 0 : sentMessages.size())
+                + ", receivedMessagesCount=" + (receivedMessages == null ? 0 : receivedMessages.size()) + "]";
     }
 
 }
