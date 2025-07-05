@@ -62,11 +62,11 @@ public class Message {
         this.recipient = recipient;
     }
 
-    public String getMessage() {
+    public String getContent() {
         return content;
     }
 
-    public void setMessage(String message) {
+    public void setContent(String message) {
         this.content = message;
     }
 
@@ -76,7 +76,10 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message [id=" + id + ", sender=" + sender + ", recipient=" + recipient + ", content=" + content
+        return "Message [id=" + id
+                + ", senderId=" + (sender != null ? sender.getId() : null)
+                + ", recipientId=" + (recipient != null ? recipient.getId() : null)
+                + ", content=" + content
                 + ", createdAt=" + createdAt + "]";
     }
 
