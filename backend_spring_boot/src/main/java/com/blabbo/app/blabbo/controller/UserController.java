@@ -1,10 +1,11 @@
 package com.blabbo.app.blabbo.controller;
 
-import com.blabbo.app.blabbo.DTO.userRegisterDTO;
+import com.blabbo.app.blabbo.DTO.UserRegisterDTO;
 import com.blabbo.app.blabbo.model.User;
 import com.blabbo.app.blabbo.model.UserSummary;
 import com.blabbo.app.blabbo.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,8 @@ public class UserController {
 
     @PutMapping("/update/username/{id}")
     public ResponseEntity<Void> updateUsername(@PathVariable Long id,
-                                               @RequestBody String newUserName) {
+                                               @RequestBody
+                                               String newUserName) {
         userService.updateUserName(newUserName, id);
         return ResponseEntity.ok().build();
     }
@@ -51,7 +53,8 @@ public class UserController {
 
     @PutMapping("/update/email/{id}")
     public ResponseEntity<String> updateUserEmail(@PathVariable Long id,
-                                                  @RequestBody String newEmail) {
+                                                  @RequestBody
+                                                  String newEmail) {
         User user = userService.getUserById(id);
         user.setEmail(newEmail);
         return ResponseEntity.ok().body("Email updated successfully");
@@ -60,7 +63,7 @@ public class UserController {
 
     @PostMapping("/create")
     public ResponseEntity<String> createUser(
-            @Valid @RequestBody userRegisterDTO userDTO) {
+            @Valid @RequestBody UserRegisterDTO userDTO) {
         userService.registerUser(userDTO.getName(), userDTO.getEmail(),
                                  userDTO.getPassword());
         return ResponseEntity

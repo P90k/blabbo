@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public class userRegisterDTO {
+public class UserRegisterDTO {
     @Email(message = "Valid email must be provided")
     @NotNull(message = "Email must be provided")
     @NotEmpty(message = "Email cannot be empty")
@@ -19,10 +19,10 @@ public class userRegisterDTO {
     private final String password;
 
 
-    public userRegisterDTO(String email, String name, String password) {
+    public UserRegisterDTO(String email, String name, String rawPassword) {
         this.email = email;
         this.name = name;
-        this.password = password;
+        this.password = rawPassword;
     }
 
 
