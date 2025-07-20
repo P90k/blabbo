@@ -63,7 +63,9 @@ public class UserController {
             @Valid @RequestBody userRegisterDTO userDTO) {
         userService.registerUser(userDTO.getName(), userDTO.getEmail(),
                                  userDTO.getPassword());
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body("User registered " + "successfully");
     }
 
 
