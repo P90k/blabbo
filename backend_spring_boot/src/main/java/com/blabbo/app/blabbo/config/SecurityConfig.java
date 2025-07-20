@@ -26,7 +26,9 @@ public class SecurityConfig {
 
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public PasswordEncoder DelegatingPasswordEncoder() {
+        Map<String, PasswordEncoder> encoders = new HashMap<>();
+        encoders.put("bcrypt", new BCryptPasswordEncoder());
+        return new DelegatingPasswordEncoder("bcrypt", encoders);
     }
 }
