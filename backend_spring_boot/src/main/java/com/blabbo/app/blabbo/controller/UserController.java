@@ -1,82 +1,75 @@
 package com.blabbo.app.blabbo.controller;
 
+import com.blabbo.app.blabbo.DTO.userRegisterDTO;
 import com.blabbo.app.blabbo.model.User;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.blabbo.app.blabbo.model.UserSummary;
+import com.blabbo.app.blabbo.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.blabbo.app.blabbo.repository.UserRepository;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserService userService;
+
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public ResponseEntity<List<UserSummary>> getAllUsers() {
+        return ResponseEntity.ok().body(userService.getAllUsers());
     }
 
-    @GetMapping("/{id}")
+
+    @GetMapping("/id/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return userRepository.findById(id)
-                .map(user -> ResponseEntity.ok(user))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        User retrievedUser = userService.getUserById(id);
+        return ResponseEntity.ok().body(retrievedUser);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user == null) {
-            return ResponseEntity.badRequest().build();
-        }
 
-        String userName = userDetails.getName();
-        String email = userDetails.getEmail();
-
-        if (userName != null) {
-            user.setName(userName);
-        }
-        if (email != null) {
-            user.setEmail(email);
-        }
-
-        User savedUser = userRepository.save(user);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    @PutMapping("/update/username/{id}")
+    public ResponseEntity<Void> updateUsername(@PathVariable Long id,
+                                               @RequestBody String newUserName) {
+        userService.updateUserName(newUserName, id);
+        return ResponseEntity.ok().build();
     }
+
+
+    @GetMapping("/users/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok().body(userService.getUserByEmail(email));
+    }
+
+
+    @PutMapping("/update/email/{id}")
+    public ResponseEntity<String> updateUserEmail(@PathVariable Long id,
+                                                  @RequestBody String newEmail) {
+        User user = userService.getUserById(id);
+        user.setEmail(newEmail);
+        return ResponseEntity.ok().body("Email updated successfully");
+    }
+
 
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User newUser) {
-
-        // Check for existing user-email in db
-        Optional<User> existingUser = userRepository.findByEmail(newUser.getEmail());
-
-        if (existingUser.isPresent()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
-
-        User savedUser = userRepository.save(newUser);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+    public ResponseEntity<String> createUser(
+            @Valid @RequestBody userRegisterDTO userDTO) {
+        userService.registerUser(userDTO.getName(), userDTO.getEmail(),
+                                 userDTO.getPassword());
+        return ResponseEntity.ok("User registered successfully");
     }
+
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUserById(id);
+        return ResponseEntity.status(204).build();
     }
-
 }
