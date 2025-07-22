@@ -1,0 +1,5 @@
+Run the following commands to create a set of RSA keys:
+
+1. openssl genpkey -algorithm RSA -out private.pem -pkeyopt rsa_keygen_bits:2048
+
+2. openssl rsa -pubout -in private.pem -out public.pem

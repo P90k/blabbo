@@ -1,0 +1,12 @@
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: DEBUG
+
+jwt:
+  private.key: classpath:keys/private.pem
+  public.key: classpath:keys/public.pem
+
