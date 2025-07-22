@@ -33,7 +33,7 @@ public class AuthController {
     @PostMapping("/login")
     String token(Authentication authentication) {
         Instant now = Instant.now();
-        long expiry = 36000L;
+        long expiry = 900; // 15 minutes expiry time
 
         String scope = authentication.getAuthorities()
                                      .stream()
