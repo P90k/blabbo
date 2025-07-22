@@ -1,6 +1,6 @@
 package com.blabbo.app.blabbo.config;
 
-import com.blabbo.app.blabbo.service.JwtBlockListFilter;
+import com.blabbo.app.blabbo.security.filters.JwtBlockListFilter;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
