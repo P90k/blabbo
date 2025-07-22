@@ -1,5 +1,6 @@
-package com.blabbo.app.blabbo.service;
+package com.blabbo.app.blabbo.security.filters;
 
+import com.blabbo.app.blabbo.service.JwtTokenBlockListService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
