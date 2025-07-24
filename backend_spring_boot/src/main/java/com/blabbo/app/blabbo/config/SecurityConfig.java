@@ -51,12 +51,11 @@ public class SecurityConfig {
                                                    JwtBlockListFilter jwtBlockListFilter) throws
                                                                                           Exception {
         http.authorizeHttpRequests(
-                    (requests) -> requests.requestMatchers("auth/login",
-                                                           "api/users/create")
+                    (requests) -> requests.requestMatchers("api/users/create")
                                           .permitAll()
                                           .anyRequest()
                                           .authenticated())
-            .csrf((csrf) -> csrf.ignoringRequestMatchers("auth/login",
+            .csrf((csrf) -> csrf.ignoringRequestMatchers("auth/token",
                                                          "api/users/create"))
             .addFilterBefore(jwtBlockListFilter,
                              UsernamePasswordAuthenticationFilter.class)

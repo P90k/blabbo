@@ -1,5 +1,6 @@
 package com.blabbo.app.blabbo.controller;
 
+import com.blabbo.app.blabbo.exceptions.InvalidJwtException;
 import com.blabbo.app.blabbo.exceptions.ResourceNotFound;
 import com.blabbo.app.blabbo.exceptions.UserAlreadyExists;
 import org.springframework.http.ResponseEntity;
@@ -32,5 +33,15 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(ResourceNotFound.class)
     public ResponseEntity<String> handleResourceNotFound() {
         return ResponseEntity.badRequest().body("Resource not found");
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(InvalidJwtException.class)
+    public ResponseEntity<String> handleInvalidJwtException(InvalidJwtException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
     }
 }

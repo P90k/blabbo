@@ -35,6 +35,7 @@ public class Message {
         this.sender = sender;
         this.recipient = recipient;
         this.content = message;
+        this.createdAt = LocalDateTime.now();
     }
 
 
