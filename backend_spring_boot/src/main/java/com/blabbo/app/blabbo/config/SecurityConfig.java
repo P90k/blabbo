@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -98,6 +99,8 @@ public class SecurityConfig {
     public PasswordEncoder delegatingPasswordEncoder() {
         Map<String, PasswordEncoder> encoders = new HashMap<>();
         encoders.put("bcrypt", new BCryptPasswordEncoder());
-        return new DelegatingPasswordEncoder("bcrypt", encoders);
+        encoders.put("argon2",
+                     Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8());
+        return new DelegatingPasswordEncoder("argon2", encoders);
     }
 }
