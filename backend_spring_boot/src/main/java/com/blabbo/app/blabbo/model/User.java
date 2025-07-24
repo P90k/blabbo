@@ -38,8 +38,8 @@ public class User {
 
 
     public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
+        this.name     = name;
+        this.email    = email;
         this.password = password;
     }
 
@@ -82,21 +82,6 @@ public class User {
 
     public List<Message> getSentMessages() {
         return sentMessages;
-    }
-
-
-    public void setSentMessages(List<Message> sentMessages) {
-        this.sentMessages = sentMessages;
-    }
-
-
-    public List<Message> getRecievedMessages() {
-        return receivedMessages;
-    }
-
-
-    public void setRecievedMessages(List<Message> recievedMessages) {
-        this.receivedMessages = recievedMessages;
     }
 
 
