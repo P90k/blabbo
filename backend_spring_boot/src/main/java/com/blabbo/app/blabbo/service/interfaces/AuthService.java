@@ -1,4 +1,4 @@
-package com.blabbo.app.blabbo.service;
+package com.blabbo.app.blabbo.service.interfaces;
 
 public interface AuthService {
 

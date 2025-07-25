@@ -1,6 +1,7 @@
 package com.blabbo.app.blabbo.service;
 
 import com.blabbo.app.blabbo.exceptions.InvalidJwtException;
+import com.blabbo.app.blabbo.service.interfaces.AuthService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.*;

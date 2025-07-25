@@ -2,7 +2,7 @@ package com.blabbo.app.blabbo.controller;
 
 import com.blabbo.app.blabbo.DTO.MessageDTO;
 import com.blabbo.app.blabbo.model.Message;
-import com.blabbo.app.blabbo.service.MessageService;
+import com.blabbo.app.blabbo.service.interfaces.MessageService;
 import com.blabbo.app.blabbo.service.MessageServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

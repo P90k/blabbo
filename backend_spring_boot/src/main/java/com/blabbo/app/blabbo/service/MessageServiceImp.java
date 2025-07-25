@@ -6,6 +6,7 @@ import com.blabbo.app.blabbo.model.Message;
 import com.blabbo.app.blabbo.model.User;
 import com.blabbo.app.blabbo.repository.MessageRepository;
 import com.blabbo.app.blabbo.repository.UserRepository;
+import com.blabbo.app.blabbo.service.interfaces.MessageService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

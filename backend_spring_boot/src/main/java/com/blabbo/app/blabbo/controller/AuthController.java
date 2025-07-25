@@ -1,6 +1,6 @@
 package com.blabbo.app.blabbo.controller;
 
-import com.blabbo.app.blabbo.service.AuthService;
+import com.blabbo.app.blabbo.service.interfaces.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
