@@ -27,7 +27,7 @@ public class UserService {
 
 
     public void registerUser(String name, String email, String rawPassword) {
-        if (userRepository.findByEmail(email).isPresent()) {
+        if (userRepository.existsByEmail(email)) {
             throw new UserAlreadyExists();
         }
         String encodedPassword = passwordEncoder.encode(rawPassword);
@@ -45,15 +45,12 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(ResourceNotFound::new);
     }
 
-
-    public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(
-                ResourceNotFound::new);
-    }
-
-
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 

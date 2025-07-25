@@ -3,6 +3,7 @@ package com.blabbo.app.blabbo.controller;
 import com.blabbo.app.blabbo.exceptions.InvalidJwtException;
 import com.blabbo.app.blabbo.exceptions.ResourceNotFound;
 import com.blabbo.app.blabbo.exceptions.UserAlreadyExists;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
