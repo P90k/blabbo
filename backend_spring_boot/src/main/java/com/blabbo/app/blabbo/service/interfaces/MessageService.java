@@ -11,7 +11,9 @@ public interface MessageService {
 
     MessageDTO getMessage(Long id);
 
+
     List<MessageDTO> getMessages();
+
 
     void deleteMessage(Long id);
 
