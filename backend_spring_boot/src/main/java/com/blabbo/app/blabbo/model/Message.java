@@ -1,5 +1,6 @@
 package com.blabbo.app.blabbo.model;
 
+import com.blabbo.app.blabbo.DTO.MessageDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.annotations.CreationTimestamp;
@@ -32,9 +33,9 @@ public class Message {
 
 
     public Message(User sender, User recipient, @NotBlank String message) {
-        this.sender = sender;
+        this.sender    = sender;
         this.recipient = recipient;
-        this.content = message;
+        this.content   = message;
         this.createdAt = LocalDateTime.now();
     }
 
@@ -79,9 +80,19 @@ public class Message {
     }
 
 
+    public MessageDTO toDTO() {
+        return new MessageDTO(this.id, this.createdAt, this.content,
+                              this.sender.getEmail(),
+                              this.recipient.getEmail());
+    }
+
+
     @Override
     public String toString() {
-        return "Message [id=" + id + ", senderId=" + (sender != null ? sender.getId() : null) + ", recipientId=" + (recipient != null ? recipient.getId() : null) + ", content=" + content + ", createdAt=" + createdAt + "]";
+        return "Message [id=" + id + ", senderId=" +
+                (sender != null ? sender.getId() : null) + ", recipientId=" +
+                (recipient != null ? recipient.getId() : null) + ", content=" +
+                content + ", createdAt=" + createdAt + "]";
     }
 
 }
