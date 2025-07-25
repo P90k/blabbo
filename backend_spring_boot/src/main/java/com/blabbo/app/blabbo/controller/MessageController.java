@@ -8,16 +8,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/message")
 public class MessageController {
 
     private final MessageService msgService;
+    private final MessageService messageService;
 
 
-    public MessageController(MessageServiceImp msgService) {
-        this.msgService = msgService;
+    public MessageController(MessageServiceImp msgService,
+                             MessageService messageService) {
+        this.msgService     = msgService;
+        this.messageService = messageService;
     }
 
 
@@ -37,6 +42,11 @@ public class MessageController {
     public ResponseEntity<MessageDTO> getMessage(@PathVariable Long id) {
         MessageDTO retrievedMsg = msgService.getMessage(id);
         return ResponseEntity.ok(retrievedMsg);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<MessageDTO>> getAllMessages() {
+        return ResponseEntity.ok(msgService.getMessages());
     }
 
 

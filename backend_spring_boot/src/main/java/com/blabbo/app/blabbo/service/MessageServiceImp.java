@@ -9,7 +9,9 @@ import com.blabbo.app.blabbo.repository.UserRepository;
 import com.blabbo.app.blabbo.service.interfaces.MessageService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class MessageServiceImp implements MessageService {
@@ -37,9 +39,16 @@ public class MessageServiceImp implements MessageService {
             throw new ResourceNotFound();
         }
         Message message = retrievedMsg.get();
-        return new MessageDTO(message.getSender().getEmail(),
-                              message.getRecipient().getEmail(),
-                              message.getContent());
+        return message.toDTO();
+    }
+
+
+    @Override
+    public List<MessageDTO> getMessages() {
+        final List<Message> allMessages = messageRepository.findAll();
+        return allMessages.stream()
+                          .map(Message::toDTO)
+                          .collect(Collectors.toList());
     }
 
 
