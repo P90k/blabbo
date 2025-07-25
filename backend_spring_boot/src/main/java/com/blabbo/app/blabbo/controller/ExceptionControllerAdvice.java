@@ -32,7 +32,8 @@ public class ExceptionControllerAdvice {
 
     @ExceptionHandler(ResourceNotFound.class)
     public ResponseEntity<String> handleResourceNotFound() {
-        return ResponseEntity.badRequest().body("Resource not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Resource not " +
+                                                                   "found");
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
