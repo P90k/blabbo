@@ -1,5 +1,6 @@
 package com.blabbo.app.blabbo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -24,12 +25,15 @@ public class User {
     private String email;
 
     @NotBlank
+    @JsonIgnore
     private String password;
 
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "sender", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Message> sentMessages;
 
-    @OneToMany(mappedBy = "recipient")
+    @JsonIgnore
+    @OneToMany(mappedBy = "recipient", cascade = CascadeType.ALL)
     private List<Message> receivedMessages;
 
 
@@ -87,7 +91,11 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=PROTECTED, sentMessagesCount=" + (sentMessages == null ? 0 : sentMessages.size()) + ", receivedMessagesCount=" + (receivedMessages == null ? 0 : receivedMessages.size()) + "]";
+        return "User [id=" + id + ", name=" + name + ", email=" + email +
+                ", password=PROTECTED, sentMessagesCount=" +
+                (sentMessages == null ? 0 : sentMessages.size()) +
+                ", receivedMessagesCount=" +
+                (receivedMessages == null ? 0 : receivedMessages.size()) + "]";
     }
 
 }
