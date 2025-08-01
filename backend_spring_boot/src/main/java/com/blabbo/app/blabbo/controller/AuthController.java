@@ -19,11 +19,6 @@ public class AuthController {
     }
 
 
-    @PostMapping("/token")
-    public ResponseEntity<String> token() {
-        String token = authService.token();
-        return ResponseEntity.ok(token);
-    }
 
 
     @PostMapping("/logout")

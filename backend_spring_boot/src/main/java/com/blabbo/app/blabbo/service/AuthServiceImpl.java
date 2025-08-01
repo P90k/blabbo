@@ -4,7 +4,10 @@ import com.blabbo.app.blabbo.exceptions.InvalidJwtException;
 import com.blabbo.app.blabbo.service.interfaces.AuthService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.*;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -12,19 +15,17 @@ import java.util.UUID;
 
 @Component
 public class AuthServiceImpl implements AuthService {
-    final JwtEncoder jwtEncoder;
-    final JwtDecoder jwtDecoder;
     final JwtTokenBlockListService jwtTokenBlockListService;
+    private final JwtDecoder jwtDecoder;
 
 
-    public AuthServiceImpl(JwtEncoder jwtEncoder, JwtDecoder jwtDecoder,
-                           JwtTokenBlockListService jwtTokenBlockListService) {
-        this.jwtEncoder               = jwtEncoder;
-        this.jwtDecoder               = jwtDecoder;
+    public AuthServiceImpl(JwtTokenBlockListService jwtTokenBlockListService,
+                           JwtDecoder jwtDecoder) {
         this.jwtTokenBlockListService = jwtTokenBlockListService;
+        this.jwtDecoder               = jwtDecoder;
     }
 
-
+/*
     @Override
     public String token() {
         Authentication authentication =
@@ -38,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
                                      .map(GrantedAuthority::getAuthority)
                                      .collect(Collectors.joining(" "));
 
-         */
+
 
         JwtClaimsSet jwtClaimsSet = JwtClaimsSet.builder()
                                                 .issuer("self")
@@ -54,8 +55,7 @@ public class AuthServiceImpl implements AuthService {
         return jwtEncoder.encode(JwtEncoderParameters.from(jwtClaimsSet))
                          .getTokenValue();
     }
-
-
+*/
     @Override
     public String logout(String authHeader) {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
